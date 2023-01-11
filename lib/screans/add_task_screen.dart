@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:to_doey/model/Task.dart';
+import 'package:to_doey/model/Task.dart';
+import 'package:provider/provider.dart';
+import 'package:to_doey/model/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({Key? key}) : super(key: key);
 
+  late  String newTaskTitle;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,13 +37,20 @@ class AddTaskScreen extends StatelessWidget {
             TextField(
               autofocus: true,
               textAlign: TextAlign.center,
+              onChanged: (newTitle){
+                newTaskTitle = newTitle;
+              },
             ),
             Padding(
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 child: TextButton(
                   
                   onPressed: () {
-                    //TODO add our task to the list
+                    final task =  Task(newTaskTitle);
+                    Provider.of<TaskData>(context , listen: false).addTask(newTaskTitle);
+                    Navigator.pop(context);
+
+
                   },
                   style:ButtonStyle(
 
